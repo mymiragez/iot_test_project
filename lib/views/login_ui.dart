@@ -19,7 +19,7 @@ class _LoginUIState extends State<LoginUI> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amber,
+        backgroundColor: const Color.fromARGB(255, 134, 13, 5),
         title: Text(
           'IoT SAU 2024',
           style: GoogleFonts.kanit(
@@ -53,7 +53,7 @@ class _LoginUIState extends State<LoginUI> {
                   'เข้าใช้งานแอปพลิเคชั่น',
                   style: GoogleFonts.kanit(
                     textStyle: TextStyle(
-                      color: Color.fromARGB(255, 201, 138, 1),
+                      color: const Color.fromARGB(255, 134, 13, 5),
                       fontSize: MediaQuery.of(context).size.height * 0.026,
                       fontWeight: FontWeight.bold,
                     ),
@@ -65,7 +65,9 @@ class _LoginUIState extends State<LoginUI> {
                 TextField(
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.amber),
+                      borderSide: BorderSide(
+                        color: const Color.fromARGB(255, 134, 13, 5),
+                      ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -77,7 +79,7 @@ class _LoginUIState extends State<LoginUI> {
                     hintStyle: GoogleFonts.kanit(),
                     labelStyle: GoogleFonts.kanit(
                       textStyle: TextStyle(
-                        color: Colors.amber,
+                        color: const Color.fromARGB(255, 134, 13, 5),
                       ),
                     ),
                   ),
@@ -89,7 +91,9 @@ class _LoginUIState extends State<LoginUI> {
                   obscureText: pwdShow,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.amber),
+                      borderSide: BorderSide(
+                        color: const Color.fromARGB(255, 134, 13, 5),
+                      ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -101,19 +105,21 @@ class _LoginUIState extends State<LoginUI> {
                     hintStyle: GoogleFonts.kanit(),
                     labelStyle: GoogleFonts.kanit(
                       textStyle: TextStyle(
-                        color: Colors.amber,
+                        color: const Color.fromARGB(255, 134, 13, 5),
                       ),
                     ),
                     suffixIcon: IconButton(
                       onPressed: () {
-                        setState(() {
-                          // มีผลต่อการแสดงผลต้องใช้ setState
-                          if (pwdShow == true) {
-                            pwdShow = false;
-                          } else {
-                            pwdShow = true;
-                          }
-                        });
+                        setState(
+                          () {
+                            // มีผลต่อการแสดงผลต้องใช้ setState
+                            if (pwdShow == true) {
+                              pwdShow = false;
+                            } else {
+                              pwdShow = true;
+                            }
+                          },
+                        );
                       },
                       icon: Icon(
                         //ternary operator ----> ____? ____: ______ มีเครื่องหมาย ? กับ : ถ้าข้างหน้าเป็นจริงจะได้หลัง? ถ้าไม่เป็นจริงจะได้หลัง :
@@ -131,18 +137,17 @@ class _LoginUIState extends State<LoginUI> {
                     'Login',
                     style: GoogleFonts.kanit(
                       textStyle: TextStyle(
-                        color: Colors.blue,
+                        color: Colors.white,
                         fontSize: MediaQuery.of(context).size.height * 0.02,
                       ),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    fixedSize: Size(MediaQuery.of(context).size.width,
-                        MediaQuery.of(context).size.height * 0.07),
+                    fixedSize: Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height * 0.07),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    backgroundColor: Colors.amber,
+                    backgroundColor: const Color.fromARGB(255, 134, 13, 5),
                   ),
                 ),
                 SizedBox(
@@ -173,9 +178,9 @@ class _LoginUIState extends State<LoginUI> {
                         'Register',
                         style: GoogleFonts.kanit(
                           textStyle: TextStyle(
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.02,
-                              color: Colors.blue),
+                            fontSize: MediaQuery.of(context).size.height * 0.02,
+                            color: const Color.fromARGB(255, 134, 13, 5),
+                          ),
                         ),
                       ),
                     ),
