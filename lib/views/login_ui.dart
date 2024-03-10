@@ -3,6 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iot_test_project/models/user.dart';
+import 'package:iot_test_project/services/call_api.dart';
+import 'package:iot_test_project/views/home_ui.dart';
 import 'package:iot_test_project/views/register_ui.dart';
 
 class LoginUI extends StatefulWidget {
@@ -14,6 +17,41 @@ class LoginUI extends StatefulWidget {
 
 class _LoginUIState extends State<LoginUI> {
   bool pwdShow = true;
+
+  TextEditingController usernameCtrl = TextEditingController(text: '');
+  TextEditingController passwordCtrl = TextEditingController(text: '');
+
+//สร้างเมธอดแสดง Warning Message
+  showWarningMessage(context, msg) async {
+    await showDialog(
+      barrierDismissible: false,
+      context: context, // show ที่หน้าจอดัวเอง (context)
+      builder: (context) => AlertDialog(
+        //Show แบบ Alert
+        title: Text(
+          'คำเตือน',
+          style: GoogleFonts.kanit(),
+          textAlign: TextAlign.center,
+        ),
+        content: Text(
+          msg,
+          style: GoogleFonts.kanit(),
+          textAlign: TextAlign.center,
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              'ตกลง',
+              style: GoogleFonts.kanit(),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +101,7 @@ class _LoginUIState extends State<LoginUI> {
                   height: MediaQuery.of(context).size.height * 0.05,
                 ),
                 TextField(
+                  controller: usernameCtrl,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -89,6 +128,7 @@ class _LoginUIState extends State<LoginUI> {
                 ),
                 TextField(
                   obscureText: pwdShow,
+                  controller: passwordCtrl,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -132,7 +172,39 @@ class _LoginUIState extends State<LoginUI> {
                   height: MediaQuery.of(context).size.height * 0.05,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    //validate
+                    if (usernameCtrl.text.isEmpty == true) {
+                      showWarningMessage(context, 'กรุณาป้อนชื่อผู้ใช้ด้วย...');
+                    } else if (passwordCtrl.text.isEmpty == true) {
+                      showWarningMessage(context, 'กรุณาป้อนรหัสผ่านด้วย...');
+                    } else {
+                      //เรียก API ตรวจสอบ
+                      User user = User(
+                        userName: usernameCtrl.text,
+                        userPassword: passwordCtrl.text,
+                      );
+                      CallApi.checkLogin(user).then(
+                        (value) => {
+                          if (value.message == "1") //ถ้า Callapi return เป็น data ต้องมี .message
+                            {
+                              //login สำเร็จ เปิดหน้าจอ HomeUI
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => HomeUI(),
+                                ),
+                              ),
+                            }
+                          else
+                            {
+                              //ไม่สำเร็จจะแสดง msg บอก
+                              showWarningMessage(context, 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'),
+                            },
+                        },
+                      );
+                    }
+                  },
                   child: Text(
                     'Login',
                     style: GoogleFonts.kanit(
