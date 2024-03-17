@@ -175,11 +175,11 @@ class _LoginUIState extends State<LoginUI> {
                   onPressed: () {
                     //validate
                     if (usernameCtrl.text.isEmpty == true) {
-                      showWarningMessage(context, 'กรุณาป้อนชื่อผู้ใช้ด้วย...');
+                      showWarningMessage(context, "กรุณาป้อนชื่อผู้ใช้ด้วย..!!!");
                     } else if (passwordCtrl.text.isEmpty == true) {
-                      showWarningMessage(context, 'กรุณาป้อนรหัสผ่านด้วย...');
+                      showWarningMessage(context, "กรุณาป้อนรหัสผ่านด้วย..!!!");
                     } else {
-                      //เรียก API ตรวจสอบ
+                      //ส่งข้อมูลไปที่ Server เพื่อบันทึก ผ่าน API
                       User user = User(
                         userName: usernameCtrl.text,
                         userPassword: passwordCtrl.text,
@@ -192,7 +192,9 @@ class _LoginUIState extends State<LoginUI> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => HomeUI(),
+                                  builder: (context) => HomeUI(
+                                    user: value,
+                                  ),
                                 ),
                               ),
                             }

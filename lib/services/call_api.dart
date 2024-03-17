@@ -2,7 +2,7 @@
 // ignore_for_file: void_checks, prefer_interpolation_to_compose_strings
 
 import 'dart:convert';
-
+import 'dart:async';
 import 'package:iot_test_project/models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:iot_test_project/utils/host.dart';
@@ -61,6 +61,25 @@ class CallApi {
   }
 
 //เมธอดเรียก API แก้ไขข้อมูลส่วนตัว
+
+  static Future updateUser(User user) async {
+    //คำสั่งเรียกใช้ API ที่ Server
+    //insert ใช้ post, update ใช้ put,delete ใช้ delete, นอกเหนือใช้ get
+    final response = await http.post(
+      Uri.parse(
+        Host.hostUrl + "/iotsau01api/apis/user/update_user_api.php",
+      ),
+      body: jsonEncode(user.toJson()),
+      headers: {'content-Type': 'application/json'},
+    );
+//ตรวจสอบผลการเรียกใช้งานพร้อมส่งค่าผลการเรียกใช้งานกลับไปยังจุดเรียกใช้
+    if (response.statusCode == 200) {
+      final responseData = jsonDecode(response.body);
+      return responseData['message'];
+    } else {
+      throw Exception('Fail ...');
+    }
+  }
 
 //เมธอดเรียก API เพื่อดึงข้อมูลค่า Sensor จากตาราง roomtemp_tb มาแสดงเป็นตาราง กราฟแท่งเส้น
 
