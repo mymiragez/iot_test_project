@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:iot_test_project/models/user.dart';
 import 'package:iot_test_project/views/login_ui.dart';
 import 'package:iot_test_project/views/show_value_iot01.dart';
+import 'package:iot_test_project/views/show_value_iot02.dart';
+import 'package:iot_test_project/views/show_value_iot03.dart';
+import 'package:iot_test_project/views/show_value_iot04.dart';
 import 'package:iot_test_project/views/update_profile_ui.dart';
 
 class HomeUI extends StatefulWidget {
@@ -84,11 +87,9 @@ class _HomeUIState extends State<HomeUI> {
                               {
                                 setState(() {
                                   widget.user!.userId = value.userId;
-                                  widget.user!.userFullname =
-                                      value.userFullname;
+                                  widget.user!.userFullname = value.userFullname;
                                   widget.user!.userName = value.userName;
-                                  widget.user!.userPassword =
-                                      value.userPassword;
+                                  widget.user!.userPassword = value.userPassword;
                                   widget.user!.userAge = value.userAge;
                                 }),
                               }
@@ -156,7 +157,14 @@ class _HomeUIState extends State<HomeUI> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ShowValueIOT02(),
+                                ),
+                              );
+                            },
                             child: Text(
                               'ข้อมูล\nแอร์ตัวที่ 1',
                               textAlign: TextAlign.center,
@@ -179,7 +187,14 @@ class _HomeUIState extends State<HomeUI> {
                             ),
                           ),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ShowValueIOT03(),
+                                ),
+                              );
+                            },
                             child: Text(
                               'ข้อมูล\nแอร์ตัวที่ 2',
                               textAlign: TextAlign.center,
@@ -202,7 +217,14 @@ class _HomeUIState extends State<HomeUI> {
                             ),
                           ),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ShowValueIOT04(),
+                                ),
+                              );
+                            },
                             child: Text(
                               'ข้อมูล\nแอร์ตัวที่ 3',
                               textAlign: TextAlign.center,

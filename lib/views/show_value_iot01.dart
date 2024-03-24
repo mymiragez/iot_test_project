@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:iot_test_project/models/roomtemp.dart';
 import 'package:iot_test_project/services/call_api.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 
 class ShowValueIOT01 extends StatefulWidget {
   const ShowValueIOT01({super.key});
@@ -55,6 +56,7 @@ class _ShowValueIOT01State extends State<ShowValueIOT01> {
     return <GridColumn>[
       GridColumn(
         columnName: 'temp1',
+        width: 80.0,
         label: Container(
           padding: EdgeInsets.all(8),
           alignment: Alignment.center,
@@ -66,6 +68,7 @@ class _ShowValueIOT01State extends State<ShowValueIOT01> {
       ),
       GridColumn(
         columnName: 'temp2',
+        width: 80.0,
         label: Container(
           padding: EdgeInsets.all(8),
           alignment: Alignment.center,
@@ -77,6 +80,7 @@ class _ShowValueIOT01State extends State<ShowValueIOT01> {
       ),
       GridColumn(
         columnName: 'temp3',
+        width: 80.0,
         label: Container(
           padding: EdgeInsets.all(8),
           alignment: Alignment.center,
@@ -88,6 +92,7 @@ class _ShowValueIOT01State extends State<ShowValueIOT01> {
       ),
       GridColumn(
         columnName: 'datesave',
+        width: 100.0,
         label: Container(
           padding: EdgeInsets.all(8),
           alignment: Alignment.center,
@@ -99,6 +104,7 @@ class _ShowValueIOT01State extends State<ShowValueIOT01> {
       ),
       GridColumn(
         columnName: 'timesave',
+        width: 80.0,
         label: Container(
           padding: EdgeInsets.all(8),
           alignment: Alignment.center,
@@ -141,8 +147,7 @@ class _ShowValueIOT01State extends State<ShowValueIOT01> {
             ),
             Text(
               'ข้อมูลแอร์ทั้งหมด',
-              style: TextStyle(
-                  fontSize: 25.0, color: const Color.fromARGB(255, 134, 13, 5)),
+              style: TextStyle(fontSize: 25.0, color: const Color.fromARGB(255, 134, 13, 5)),
             ),
             Text(
               '-- แสดงข้อมูลแอร์ 3 ตัว วัน และเวลา --',
@@ -152,11 +157,13 @@ class _ShowValueIOT01State extends State<ShowValueIOT01> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(left: 30.0,right: 30.0,),
+                padding: const EdgeInsets.only(
+                  left: 30.0,
+                  right: 30.0,
+                ),
                 child: FutureBuilder(
                   future: CallAPIGetAllRoomtemp(),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(
                         child: CircularProgressIndicator(),
@@ -168,13 +175,17 @@ class _ShowValueIOT01State extends State<ShowValueIOT01> {
                         ),
                       );
                     } else {
-                      return  SfDataGrid(
+                      return SfDataGridTheme(
+                        data: SfDataGridThemeData(
+                          headerColor: Colors.grey,
+                        ),
+                        child: SfDataGrid(
                           source: snapshot.data,
                           columns: createHeadTable(),
-                          columnWidthMode: ColumnWidthMode.fill,
+                          columnWidthMode: ColumnWidthMode.auto,
                           gridLinesVisibility: GridLinesVisibility.both,
                           headerGridLinesVisibility: GridLinesVisibility.both,
-                        
+                        ),
                       );
                     }
                   },
@@ -216,10 +227,8 @@ class showTableDetail extends DataGridSource {
             DataGridCell(columnName: 'temp1', value: dataGridRowItem.temp1),
             DataGridCell(columnName: 'temp2', value: dataGridRowItem.temp2),
             DataGridCell(columnName: 'temp3', value: dataGridRowItem.temp3),
-            DataGridCell(
-                columnName: 'datasave', value: dataGridRowItem.datesave),
-            DataGridCell(
-                columnName: 'timesave', value: dataGridRowItem.timesave),
+            DataGridCell(columnName: 'datasave', value: dataGridRowItem.datesave),
+            DataGridCell(columnName: 'timesave', value: dataGridRowItem.timesave),
           ],
         );
       },
@@ -235,9 +244,7 @@ class showTableDetail extends DataGridSource {
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
       //แสดงสีของตารางสีเว้นสีในแต่ละแถว
-      color: effectiveRows.indexOf(row) % 2 == 0
-          ? Colors.transparent
-          : Colors.red[100],
+      color: effectiveRows.indexOf(row) % 2 == 0 ? Colors.transparent : Colors.red[100],
 
       //--
       cells: [

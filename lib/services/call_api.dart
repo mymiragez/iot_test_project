@@ -104,13 +104,63 @@ class CallApi {
 //ตรวจสอบผลการเรียกใช้งานพร้อมส่งค่าผลการเรียกใช้งานกลับไปยังจุดเรียกใช้
     if (response.statusCode == 200) {
       final responseData = jsonDecode(response.body);
-      
+
       //print(responseData);
-      
+
       //แปลงข้อมูลที่มาเป็น Json เป็นข้อมูลที่จะนำไปใช้ใน APP
-      List<Roomtemp> data = await responseData
-          .map<Roomtemp>((json) => Roomtemp.fromJson(json))
-          .toList();
+      List<Roomtemp> data = await responseData.map<Roomtemp>((json) => Roomtemp.fromJson(json)).toList();
+
+      return data;
+    } else {
+      throw Exception('Fail ...');
+    }
+  }
+
+//เมธอดเรียก API เพื่อดึงข้อมูลอุณหภูมิแอร์ตัวที่ 1 //List เพราะส่งข้อมูลหลายตัว ไม่แสดงแค่อย่างเดียวแบบ user
+  static Future<List<Roomtemp>> getAllTemp1() async {
+//คำสั่งเรียกใช้ API ที่ Server โดยผลจากการเรียกใช้จะเก็บในตัวแปร
+    //insert ใช้ post, update ใช้ put,delete ใช้ delete, นอกเหนือใช้ get
+    final response = await http.post(
+      Uri.parse(
+        Host.hostUrl + "/iotsau01api/apis/roomtemp/get_all_temp_1_api.php",
+      ),
+      headers: {'content-Type': 'application/json'},
+    );
+
+//ตรวจสอบผลการเรียกใช้งานพร้อมส่งค่าผลการเรียกใช้งานกลับไปยังจุดเรียกใช้
+    if (response.statusCode == 200) {
+      final responseData = jsonDecode(response.body);
+
+      //print(responseData);
+
+      //แปลงข้อมูลที่มาเป็น Json เป็นข้อมูลที่จะนำไปใช้ใน APP
+      List<Roomtemp> data = await responseData.map<Roomtemp>((json) => Roomtemp.fromJson(json)).toList();
+
+      return data;
+    } else {
+      throw Exception('Fail ...');
+    }
+  }
+
+//เมธอดเรียก API เพื่อดึงข้อมูลอุณหภูมิแอร์ตัวที่ 1 //List เพราะส่งข้อมูลหลายตัว ไม่แสดงแค่อย่างเดียวแบบ user
+  static Future<List<Roomtemp>> getAllTemp2() async {
+//คำสั่งเรียกใช้ API ที่ Server โดยผลจากการเรียกใช้จะเก็บในตัวแปร
+    //insert ใช้ post, update ใช้ put,delete ใช้ delete, นอกเหนือใช้ get
+    final response = await http.post(
+      Uri.parse(
+        Host.hostUrl + "/iotsau01api/apis/roomtemp/get_all_temp_2_api.php",
+      ),
+      headers: {'content-Type': 'application/json'},
+    );
+
+//ตรวจสอบผลการเรียกใช้งานพร้อมส่งค่าผลการเรียกใช้งานกลับไปยังจุดเรียกใช้
+    if (response.statusCode == 200) {
+      final responseData = jsonDecode(response.body);
+
+      //print(responseData);
+
+      //แปลงข้อมูลที่มาเป็น Json เป็นข้อมูลที่จะนำไปใช้ใน APP
+      List<Roomtemp> data = await responseData.map<Roomtemp>((json) => Roomtemp.fromJson(json)).toList();
 
       return data;
     } else {

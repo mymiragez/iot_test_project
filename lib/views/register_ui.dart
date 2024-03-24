@@ -13,6 +13,7 @@ class RegisterUI extends StatefulWidget {
 }
 
 class _RegisterUIState extends State<RegisterUI> {
+  bool pwdShow = true;
   //สร้าง object ควบคุม textField( อย่าลืมไปผูกกับ TextField)
   TextEditingController fullnameCtrl = TextEditingController(text: '');
   TextEditingController usernameCtrl = TextEditingController(text: '');
@@ -186,7 +187,7 @@ class _RegisterUIState extends State<RegisterUI> {
                 ),
                 TextField(
                   controller: passwordCtrl,
-                  obscureText: true,
+                  obscureText: pwdShow,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -207,10 +208,21 @@ class _RegisterUIState extends State<RegisterUI> {
                       ),
                     ),
                     suffixIcon: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(
+                          () {
+                            // มีผลต่อการแสดงผลต้องใช้ setState
+                            if (pwdShow == true) {
+                              pwdShow = false;
+                            } else {
+                              pwdShow = true;
+                            }
+                          },
+                        );
+                      },
                       icon: Icon(
                         //ternary operator ----> ____? ____: ______ มีเครื่องหมาย ? กับ : ถ้าข้างหน้าเป็นจริงจะได้หลัง? ถ้าไม่เป็นจริงจะได้หลัง :
-                        Icons.visibility_off,
+                        pwdShow ? Icons.visibility_off : Icons.visibility,
                       ),
                     ),
                   ),
@@ -221,7 +233,7 @@ class _RegisterUIState extends State<RegisterUI> {
                 TextField(
                   //confirm password
                   controller: confirmpasswordCtrl,
-                  obscureText: true,
+                  obscureText: pwdShow,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -242,10 +254,21 @@ class _RegisterUIState extends State<RegisterUI> {
                       ),
                     ),
                     suffixIcon: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(
+                          () {
+                            // มีผลต่อการแสดงผลต้องใช้ setState
+                            if (pwdShow == true) {
+                              pwdShow = false;
+                            } else {
+                              pwdShow = true;
+                            }
+                          },
+                        );
+                      },
                       icon: Icon(
                         //ternary operator ----> ____? ____: ______ มีเครื่องหมาย ? กับ : ถ้าข้างหน้าเป็นจริงจะได้หลัง? ถ้าไม่เป็นจริงจะได้หลัง :
-                        Icons.visibility_off,
+                        pwdShow ? Icons.visibility_off : Icons.visibility,
                       ),
                     ),
                   ),
