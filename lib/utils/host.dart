@@ -1,3 +1,3 @@
 class Host {
-  static String hostUrl = 'http://192.168.1.108'; //ip address or 'https://ekkanut.sautechnology.com'
+  static String hostUrl = 'http://172.17.36.7'; //ip address or 'https://ekkanut.sautechnology.com'
 }

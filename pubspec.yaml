@@ -45,7 +45,7 @@ dev_dependencies:
   font_awesome_flutter: ^10.7.0
   syncfusion_flutter_charts: ^25.1.35 #Show Chart
   syncfusion_flutter_datagrid: ^25.1.35 #Show Table
-    
+  syncfusion_flutter_core: ^25.1.35
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
