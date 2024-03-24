@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, camel_case_types
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, camel_case_types, unnecessary_import, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
