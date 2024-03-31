@@ -9,14 +9,21 @@ class Roomtemp {
   String? datesave;
   String? timesave;
 
-  Roomtemp({this.message, this.roomtempId, this.temp1, this.temp2, this.temp3, this.datesave, this.timesave});
+  Roomtemp(
+      {this.message,
+      this.roomtempId,
+      this.temp1,
+      this.temp2,
+      this.temp3,
+      this.datesave,
+      this.timesave});
 
   Roomtemp.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     roomtempId = json['roomtempId'];
-    temp1 = double.parse(json['temp1']);
-    temp2 = double.parse(json['temp2']);
-    temp3 = double.parse(json['temp3']);
+    temp1 = json['temp1'] == null ? 0 : double.parse(json['temp1']);
+    temp2 = json['temp2'] == null ? 0 : double.parse(json['temp2']);
+    temp3 = json['temp3'] == null ? 0 : double.parse(json['temp3']);
     datesave = json['datesave'];
     timesave = json['timesave'];
   }

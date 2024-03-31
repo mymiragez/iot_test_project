@@ -46,6 +46,7 @@ dev_dependencies:
   syncfusion_flutter_charts: ^25.1.35 #Show Chart
   syncfusion_flutter_datagrid: ^25.1.35 #Show Table
   syncfusion_flutter_core: ^25.1.35 #ใช้ทำ theme
+  intl: ^0.19.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -84,6 +84,8 @@ class CallApi {
 
 //เมธอดเรียก API เพื่อดึงข้อมูลค่า Sensor จากตาราง roomtemp_tb มาแสดงเป็นตาราง กราฟแท่งเส้น
 
+
+
 //เมธอดเรียก API เพื่อแก้ไขค่า Sensor ที่ผิด
 
 //เมธอดเรียก API เพื่อลบค่า Sensor ที่ผิด
@@ -115,4 +117,31 @@ class CallApi {
       throw Exception('Fail ...');
     }
   }
+  //เมธอดเรียก API เพื่อดึง อุณหภูมิวันที่เลือก
+  static Future<List<Roomtemp>> getAirDate(Roomtemp roomtemp) async {
+//คำสั่งเรียกใช้ API ที่ Server โดยผลจากการเรียกใช้จะเก็บในตัวแปร
+
+    final response = await http.post(
+      Uri.parse(
+        Host.hostUrl + "/iotsau01api/apis/roomtemp/get_air_date_api.php",
+      ),
+      body: jsonEncode(roomtemp.toJson()),
+      headers: {'content-Type': 'application/json'},
+    );
+
+//ตรวจสอบผลการเรียกใช้งานพร้อมส่งค่าผลการเรียกใช้งานกลับไปยังจุดเรียกใช้
+    if (response.statusCode == 200) {
+      final responseData = jsonDecode(response.body);
+      //print(responseData);
+
+      //แปลงข้อมูลที่มาเป็น Json เป็นข้อมูลที่จะนำไปใช้ใน APP
+      List<Roomtemp> data = await responseData.map<Roomtemp>((json) => Roomtemp.fromJson(json)).toList();
+      //print("ddd");
+
+      return data;
+    } else {
+      throw Exception('Fail ...');
+    }
+  }
+
 }
