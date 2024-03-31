@@ -9,14 +9,14 @@ import 'package:iot_test_project/models/roomtemp.dart';
 import 'package:iot_test_project/services/call_api.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class ShowAir3LinegraphUI extends StatefulWidget {
-  const ShowAir3LinegraphUI({super.key});
+class ShowAirLinegraphUI extends StatefulWidget {
+  const ShowAirLinegraphUI({super.key});
 
   @override
-  State<ShowAir3LinegraphUI> createState() => _ShowAir3LinegraphUIState();
+  State<ShowAirLinegraphUI> createState() => _ShowAirLinegraphUIState();
 }
 
-class _ShowAir3LinegraphUIState extends State<ShowAir3LinegraphUI> {
+class _ShowAirLinegraphUIState extends State<ShowAirLinegraphUI> {
   String? dateSelected = 'ปี-เดือน-วัน';
 
 //เมธอดแสดงปฏิทิน
@@ -44,7 +44,7 @@ class _ShowAir3LinegraphUIState extends State<ShowAir3LinegraphUI> {
   }
 
 //เมธอดเรียก API เพื่อนำข้อมูลมาแสดงเป็นกราฟ
-  Future<List<Roomtemp>> _getAir3DateAPI() async {
+  Future<List<Roomtemp>> _getAir1DateAPI() async {
     //print(dateSelected);
     return await CallApi.getAirDate(
       Roomtemp(datesave: dateSelected),
@@ -55,7 +55,7 @@ class _ShowAir3LinegraphUIState extends State<ShowAir3LinegraphUI> {
 //เมธอดสร้างกราฟ
   bulidGraph() async {
     return FutureBuilder<List<Roomtemp>>(
-      future: _getAir3DateAPI(),
+      future: _getAir1DateAPI(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
@@ -127,7 +127,7 @@ class _ShowAir3LinegraphUIState extends State<ShowAir3LinegraphUI> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 134, 13, 5),
         title: Text(
-          'กราฟเส้นแอร์ตัวที่ 1',
+          'กราฟเส้นแอร์',
           style: TextStyle(
             color: Colors.white,
           ),
@@ -186,7 +186,7 @@ class _ShowAir3LinegraphUIState extends State<ShowAir3LinegraphUI> {
                         color: Colors.transparent,
                       )
                     : FutureBuilder<List<Roomtemp>>(
-                        future: _getAir3DateAPI(),
+                        future: _getAir1DateAPI(),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return CircularProgressIndicator();
@@ -207,10 +207,27 @@ class _ShowAir3LinegraphUIState extends State<ShowAir3LinegraphUI> {
                                       ),
                                       labelFormat: '{value}°C',
                                     ),
-                                    title: ChartTitle(text: 'Temperature Chart of Air 3'),
+                                    title: ChartTitle(text: 'Temperature Chart of AIR'),
                                     legend: Legend(isVisible: true),
+                                    palette: <Color>[Color.fromARGB(255, 0, 166, 255), const Color.fromARGB(255, 255, 0, 115), Color.fromARGB(255, 115, 255, 0)],
                                     series: <LineSeries>[
                                       //type Chart
+                                      LineSeries<Roomtemp, String>(
+                                        dataSource: snapshot.data!,
+                                        xValueMapper: (Roomtemp data, _) => data.timesave ?? '',
+                                        yValueMapper: (Roomtemp data, _) => data.temp1 ?? 0,
+                                        name: 'Air 1',
+                                        dataLabelSettings: DataLabelSettings(isVisible: true),
+                                        markerSettings: MarkerSettings(isVisible: true),
+                                      ),
+                                      LineSeries<Roomtemp, String>(
+                                        dataSource: snapshot.data!,
+                                        xValueMapper: (Roomtemp data, _) => data.timesave ?? '',
+                                        yValueMapper: (Roomtemp data, _) => data.temp2 ?? 0,
+                                        name: 'Air 2',
+                                        dataLabelSettings: DataLabelSettings(isVisible: true),
+                                        markerSettings: MarkerSettings(isVisible: true),
+                                      ),
                                       LineSeries<Roomtemp, String>(
                                         dataSource: snapshot.data!,
                                         xValueMapper: (Roomtemp data, _) => data.timesave ?? '',
@@ -219,18 +236,6 @@ class _ShowAir3LinegraphUIState extends State<ShowAir3LinegraphUI> {
                                         dataLabelSettings: DataLabelSettings(isVisible: true),
                                         markerSettings: MarkerSettings(isVisible: true),
                                       ),
-                                      /*LineSeries<Roomtemp, String>(
-                                        dataSource: snapshot.data!,
-                                        xValueMapper: (Roomtemp data, _) =>
-                                            data.timesave ?? '',
-                                        yValueMapper: (Roomtemp data, _) =>
-                                            data.temp2 ?? 0,
-                                        name: 'Air 2',
-                                        dataLabelSettings:
-                                            DataLabelSettings(isVisible: true),
-                                        markerSettings:
-                                            MarkerSettings(isVisible: true),
-                                      ),*/
                                     ],
                                   );
                           }

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, depend_on_referenced_packages, prefer_if_null_operators
+// ignore_for_file: prefer_const_constructors, depend_on_referenced_packages, prefer_if_null_operators, prefer_interpolation_to_compose_strings
 
 import 'dart:async';
 
@@ -26,16 +26,18 @@ class _ShowAir1LinegraphUIState extends State<ShowAir1LinegraphUI> {
       firstDate: DateTime(1990),
       lastDate: DateTime(2100),
       initialDate: DateTime.now(),
-      //หลังจากเลือกปฏิทิน
     );
 
-//หลังจากเลือกให้เอาวันที่ไปกำหนดให้กับ dataSelected
+    //หลังจากเลือกให้เอาวันที่ไปกำหนดให้กับ dataSelected
     if (datetime != null) {
       setState(
         () {
           //dateSelected = datetime.toString();
           dateSelected = DateFormat('yyyy-MM-dd').format(datetime);
           flag = 0;
+
+          // showThaiDate = 'วันที่ ${datetime.day.toString()} ${showThaiMonth(datetime.month)} ${datetime.year + 543}';
+          showThaiDate = 'วันที่ ' + datetime.day.toString() + ' ' + showThaiMonth(datetime.month) + ' ' + (543 + datetime.year).toString();
         },
       );
     }
@@ -85,9 +87,39 @@ class _ShowAir1LinegraphUIState extends State<ShowAir1LinegraphUI> {
     );
   }
 */
+  //เมธอดแปลงเดือนเป็นภาษาไทย
+  String showThaiMonth(month) {
+    switch (month) {
+      case 1:
+        return 'มกราคม';
+      case 2:
+        return 'กุมภาพันธ์';
+      case 3:
+        return 'มีนาคม';
+      case 4:
+        return 'เมษายน';
+      case 5:
+        return 'พฤษภาคม';
+      case 6:
+        return 'มิถุนายน';
+      case 7:
+        return 'กรกฎาคม';
+      case 8:
+        return 'สิงหาคม';
+      case 9:
+        return 'กันยายน';
+      case 10:
+        return 'ตุลาคม';
+      case 11:
+        return 'พฤศจิกายน';
+      default:
+        return 'ธันวาคม';
+    }
+  }
 
 //สร้างตัวแปรเพื่อใช้ควบคุมการแสดงกราฟ
   int flag = 1;
+  String showThaiDate = 'โปรดเลือกวันที่ที่ต้องการ';
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +167,12 @@ class _ShowAir1LinegraphUIState extends State<ShowAir1LinegraphUI> {
                 ),
               ],
             ),
+            Text(
+              showThaiDate,
+              style: TextStyle(
+                color: Colors.blue[800],
+              ),
+            ),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.only(
@@ -150,8 +188,7 @@ class _ShowAir1LinegraphUIState extends State<ShowAir1LinegraphUI> {
                     : FutureBuilder<List<Roomtemp>>(
                         future: _getAir1DateAPI(),
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
                             return CircularProgressIndicator();
                           } else if (snapshot.hasError) {
                             return Text('Error.....');
@@ -170,21 +207,17 @@ class _ShowAir1LinegraphUIState extends State<ShowAir1LinegraphUI> {
                                       ),
                                       labelFormat: '{value}°C',
                                     ),
-                                    title: ChartTitle(
-                                        text: 'Temperature Chart of AIR 1'),
+                                    title: ChartTitle(text: 'Temperature Chart of AIR 1'),
                                     legend: Legend(isVisible: true),
-                                    series: <LineSeries>[ //type Chart
+                                    series: <LineSeries>[
+                                      //type Chart
                                       LineSeries<Roomtemp, String>(
                                         dataSource: snapshot.data!,
-                                        xValueMapper: (Roomtemp data, _) =>
-                                            data.timesave ?? '',
-                                        yValueMapper: (Roomtemp data, _) =>
-                                            data.temp1 ?? 0,
+                                        xValueMapper: (Roomtemp data, _) => data.timesave ?? '',
+                                        yValueMapper: (Roomtemp data, _) => data.temp1 ?? 0,
                                         name: 'Air 1',
-                                        dataLabelSettings:
-                                            DataLabelSettings(isVisible: true),
-                                        markerSettings:
-                                            MarkerSettings(isVisible: true),
+                                        dataLabelSettings: DataLabelSettings(isVisible: true),
+                                        markerSettings: MarkerSettings(isVisible: true),
                                       ),
                                       /*LineSeries<Roomtemp, String>(
                                         dataSource: snapshot.data!,

@@ -11,6 +11,8 @@ import 'package:iot_test_project/views/show_value_iot02.dart';
 import 'package:iot_test_project/views/show_value_iot03.dart';
 import 'package:iot_test_project/views/show_value_iot04.dart';
 import 'package:iot_test_project/views/update_profile_ui.dart';
+import 'package:iot_test_project/views/show_air_linegraph_ui.dart';
+import 'package:iot_test_project/views/show_air_bargraph_ui.dart';
 
 class HomeUI extends StatefulWidget {
   //Variable? ? = ยอมให้มีค่า null (flutter have a null safety)
@@ -90,11 +92,9 @@ class _HomeUIState extends State<HomeUI> {
                               {
                                 setState(() {
                                   widget.user!.userId = value.userId;
-                                  widget.user!.userFullname =
-                                      value.userFullname;
+                                  widget.user!.userFullname = value.userFullname;
                                   widget.user!.userName = value.userName;
-                                  widget.user!.userPassword =
-                                      value.userPassword;
+                                  widget.user!.userPassword = value.userPassword;
                                   widget.user!.userAge = value.userAge;
                                 }),
                               }
@@ -296,7 +296,8 @@ class _HomeUIState extends State<HomeUI> {
                                 MaterialPageRoute(
                                   builder: (context) => ShowAir2LinegraphUI(),
                                 ),
-                              );},
+                              );
+                            },
                             child: Text(
                               'Air 2\nBy Date',
                               textAlign: TextAlign.center,
@@ -325,7 +326,8 @@ class _HomeUIState extends State<HomeUI> {
                                 MaterialPageRoute(
                                   builder: (context) => ShowAir3LinegraphUI(),
                                 ),
-                              );},
+                              );
+                            },
                             child: Text(
                               'Air 3\nBy Date',
                               textAlign: TextAlign.center,
@@ -353,7 +355,14 @@ class _HomeUIState extends State<HomeUI> {
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ShowAirBargraphUI(),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Bar Chart\nBy Air and Date',
                           textAlign: TextAlign.center,
@@ -376,7 +385,14 @@ class _HomeUIState extends State<HomeUI> {
                         height: MediaQuery.of(context).size.height * 0.02,
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ShowAirLinegraphUI(),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Line Chart\nBy Air and Date',
                           textAlign: TextAlign.center,
